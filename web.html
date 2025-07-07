@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mihir Samant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: #000;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 100%;
+            pointer-events: none;
+        }
+
+        /* Different particle types with animations */
+        .particle-small {
+            width: 8px;
+            height: 8px;
+            animation: float-small 8s ease-in-out infinite;
+        }
+
+        .particle-medium {
+            width: 10px;
+            height: 10px;
+            animation: float-medium 12s ease-in-out infinite;
+        }
+
+        .particle-large {
+            width: 20px;
+            height: 20px;
+            animation: float-large 15s ease-in-out infinite;
+        }
+
+        .particle-glow {
+            width: 6px;
+            height: 6px;
+            animation: float-glow 10s ease-in-out infinite;
+        }
+
+        /* Particle animations */
+        @keyframes float-small {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-40px) translateX(-5px) rotate(180deg);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(-20px) translateX(-10px) rotate(270deg);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes float-medium {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+                opacity: 0.2;
+            }
+            33% {
+                transform: translateY(-30px) translateX(15px) rotate(120deg) scale(1.2);
+                opacity: 0.6;
+            }
+            66% {
+                transform: translateY(-15px) translateX(-15px) rotate(240deg) scale(0.8);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes float-large {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+                opacity: 0.1;
+            }
+            20% {
+                transform: translateY(-25px) translateX(20px) rotate(72deg) scale(1.1);
+                opacity: 0.3;
+            }
+            40% {
+                transform: translateY(-50px) translateX(-10px) rotate(144deg) scale(0.9);
+                opacity: 0.5;
+            }
+            60% {
+                transform: translateY(-30px) translateX(-20px) rotate(216deg) scale(1.2);
+                opacity: 0.4;
+            }
+            80% {
+                transform: translateY(-15px) translateX(10px) rotate(288deg) scale(0.8);
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes float-glow {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translateY(-35px) translateX(25px) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-70px) translateX(-15px) rotate(180deg);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(-35px) translateX(-25px) rotate(270deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* Animated background shapes */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100px 100px, 150px 150px, 80px 80px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0, 0 0, 0 0;
+            }
+            100% {
+                background-position: 100px 100px, -150px -150px, 80px 80px;
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+            animation: fadeInUp 1s ease 0.4s both;
+            
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* .social-btn.linkedin { background: linear-gradient(45deg, #0077b5, #005885); }
+        .social-btn.github { background: linear-gradient(45deg, #333, #24292e); }
+        .social-btn.medium { background: linear-gradient(45deg, #00ab6c, #00d084); }
+        .social-btn.email { background: linear-gradient(45deg, #ea4335, #d33b2c); } */
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.1);
+        }
+
+        .tech-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover img {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .tech-name {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .tech-item:hover .tech-name {
+            opacity: 1;
+            bottom: -40px;
+        }
+
+        /* Content Layout */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .video-section h3,
+        .articles-section h3 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .article-link {
+            display: block;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .article-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .article-link h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .article-link p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* About Section */
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 2500px;
+            margin: 0 auto;
+        }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .content-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 6rem 1rem 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .tech-item img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo" style="
+                background: linear-gradient(90deg, 
+                    rgb(255,0,102), 
+                    rgb(0,204,255), 
+                    rgb(102,255,0), 
+                    rgb(255,255,0), 
+                    rgb(255,0,102)
+                );
+                background-size: 300% 300%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                -webkit-text-fill-color: transparent;
+                animation: rgb-gradient-move 4s linear infinite;
+            ">MS</a>
+            <style>
+            @keyframes rgb-gradient-move {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            </style>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#blogs">Blogs</a></li>
+
+                <!-- <li><a href="#projects">Projects</a></li> -->
+                <!-- <li><a href="#contact">Contact</a></li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero" id="home">
+            <h1 style="font-size:4.5rem;
+                background: linear-gradient(90deg, 
+                    rgb(255,0,102), 
+                    rgb(0,204,255), 
+                    rgb(102,255,0), 
+                    rgb(255,255,0), 
+                    rgb(255,0,102)
+                );
+                background-size: 300% 300%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                -webkit-text-fill-color: transparent;
+                animation: rgb-gradient-move 4s linear infinite;
+            ">
+                Mihir Samant
+            </h1>
+            <style>
+            @keyframes rgb-gradient-move {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            </style>
+            <p id="typing-role" style="min-height:1.5em; font-size:2.2rem;"></p>
+            <script>
+            const roles = [
+                "Data Analyst",
+                "Data Engineer",
+                "Analytics Engineer"
+            ];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let typing = true;
+            const typingSpeed = 90;
+            const erasingSpeed = 50;
+            const delayBetween = 1200;
+            const typingRole = document.getElementById('typing-role');
+
+            function typeRole() {
+                if (charIndex < roles[roleIndex].length) {
+                    typingRole.textContent += roles[roleIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeRole, typingSpeed);
+                } else {
+                    typing = false;
+                    setTimeout(eraseRole, delayBetween);
+                }
+            }
+
+            function eraseRole() {
+                if (charIndex > 0) {
+                    typingRole.textContent = roles[roleIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(eraseRole, erasingSpeed);
+                } else {
+                    typing = true;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(typeRole, 400);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', typeRole);
+            </script>
+            <p>I create pipelines to make data flow. They call me Data Plumber</p>
+            <div class="social-btn">
+                <a href="https://www.linkedin.com/in/misamant/" class="social-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/960px-LinkedIn_logo_initials.png"
+                         alt="LinkedIn"
+                         style="width:80px; height:80px; transition: transform 0.3s cubic-bezier(.4,2,.6,1);"/>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const linkedinImg = document.querySelector('a[href^="https://www.linkedin.com/"] img');
+                            if (linkedinImg) {
+                                linkedinImg.addEventListener('mouseenter', function() {
+                                    this.style.transform = 'translateY(-18px) scale(1.08)';
+                                });
+                                linkedinImg.addEventListener('mouseleave', function() {
+                                    this.style.transform = 'translateY(0) scale(1)';
+                                });
+                            }
+                        });
+                    </script>
+                </a>
+                <a href="https://github.com/miSamant" class="social-btn">
+                    <img src="https://images.seeklogo.com/logo-png/50/2/github-icon-logo-png_seeklogo-503247.png" 
+                             alt="GitHub" 
+                             style="width:80px; height:80px; transition: transform 0.3s cubic-bezier(.4,2,.6,1);"/>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const githubImg = document.querySelector('a[href^="https://github.com/"] img');
+                            if (githubImg) {
+                                githubImg.addEventListener('mouseenter', function() {
+                                    this.style.transform = 'translateY(-18px) scale(1.08)';
+                                });
+                                githubImg.addEventListener('mouseleave', function() {
+                                    this.style.transform = 'translateY(0) scale(1)';
+                                });
+                            }
+                        });
+                    </script>
+                </a>
+                <a href="https://medium.com/@mihirs202" class="social-btn">
+                    <img src="https://img.icons8.com/ios_filled/512/FFFFFF/medium-logo.png"
+                         alt="Medium."
+                         style="width:80px; height:80px; transition: transform 0.3s cubic-bezier(.4,2,.6,1);"/>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const mediumImg = document.querySelector('a[href^="https://medium.com/"] img');
+                            if (mediumImg) {
+                                mediumImg.addEventListener('mouseenter', function() {
+                                    this.style.transform = 'translateY(-18px) scale(1.08)';
+                                });
+                                mediumImg.addEventListener('mouseleave', function() {
+                                    this.style.transform = 'translateY(0) scale(1)';
+                                });
+                            }
+                        });
+                    </script>
+                </a>
+                <a href="mailto:mihirs202@gmail.com" title="Hello !" class="social-btn">
+                <img src="https://images.icon-icons.com/2642/PNG/512/google_mail_gmail_logo_icon_159346.png" 
+                    alt="Gmail" 
+                    style="width:80px; height:80px; transition: transform 0.3s cubic-bezier(.4,2,.6,1);"/>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const gmailImg = document.querySelector('a[href^="mailto:"] img');
+                    if (gmailImg) {
+                       gmailImg.addEventListener('mouseenter', function() {
+                          this.style.transform = 'translateY(-18px) scale(1.08)';
+                       });
+                       gmailImg.addEventListener('mouseleave', function() {
+                          this.style.transform = 'translateY(0) scale(1)';
+                       });
+                    }
+                });
+                </script>
+                </a>            </div>
+        </section>
+ <!-- <div style="height: 10rem;"></div> -->
+ 
+        <section class="card" id="about" style="margin-bottom: 2.5rem;">
+            <h2>About Me</h2>
+            <div class="about-content" style="margin-bottom: 2rem;">
+                <p>As a seasoned Senior Data Analyst hailing from Canada, I'm continuously on the lookout for the next stimulating challenge. With a proactive and results-oriented approach, I bring a wealth of technical expertise to the table, holding a Master of Applied Computing degree and boasting over <span style="background: linear-gradient(90deg, rgb(255,0,102), rgb(0,204,255), rgb(102,255,0), rgb(255,255,0), rgb(255,0,102)); background-size: 300% 300%; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: rgb-gradient-move 4s linear infinite;">7+</span> years of hands-on experience in the realm of Data.
+
+                Over the course of my career, I've honed my skills across various domains, with a particular focus on Python programming and navigating Data Warehouses such as Big Query, Redshift, Microsoft Azure, and Snowflake. My proficiency extends beyond mere data manipulation; I excel in extracting meaningful insights from raw datasets, leveraging a blend of ETL and ELT tools including Apache Airflow and SSIS.
+
+                Moreover, my repertoire includes crafting dynamic dashboards that breathe life into diverse datasets. I'm adept at utilizing leading BI tools like Tableau, PowerBI, and Looker to transform intricate data sets into actionable insights that drive informed decision-making.</p>
+            </div>
+
+            <div style="height: 2rem;"></div>
+
+            <h2>Badges and Certifications</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <img src="https://images.credly.com/images/b6315b18-8762-40a7-a15b-b97a6dd9c12e/blob" alt="Airflow3.0" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="tech-name">Apache Airflow 3.0 Fundamentals</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <img src="https://images.credly.com/images/655a478d-ecde-4a92-afcd-3c7be176ccf3/image.png" alt="Airflow2.0" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="tech-name">Astronomer Certification for Apache Airflow 2 Fundamentals</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <img src="https://images.credly.com/size/340x340/images/bc96bd5b-7b65-4074-9257-2d72d80753da/image.png" alt="Airflow3.0" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="tech-name">Astronomer Champions Program for Apache Airflow</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <img src="https://images.credly.com/size/340x340/images/ed8e9dd4-2125-4e0b-9db1-57cf67de09d9/image.png" alt="Airflow3.0" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="tech-name">Astronomer Certification DAG Authoring for Apache Airflow 2</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <img src="https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/144382300" alt="Airflow3.0" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="tech-name">dbt Fundamentals</div>
+                </div>
+            </div>
+
+            <div style="height: 4rem;"></div>
+            <h2>Tech Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <img src="https://www.svgrepo.com/show/452091/python.svg" alt="Python" style="width: 80px; height: 80px;">
+                    </div>
+                    <div class="tech-name">Python</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://airflow.apache.org/docs/apache-airflow/1.10.6/_images/pin_large.png" alt="Airflow" style="width: 80px; height: 80px;">
+                    <div class="tech-name">Apache Airflow</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/snowflake-color.png" alt="Snowflake">
+                    <div class="tech-name">Snowflake</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://1000logos.net/wp-content/uploads/2025/01/Databricks-Emblem.png" alt="Databricks">
+                    <div class="tech-name">Databricks</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.seeklogo.com/logo-png/43/2/dbt-logo-png_seeklogo-431111.png" alt="dbt">
+                    <div class="tech-name">dbt</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.icon-icons.com/2699/PNG/512/google_bigquery_logo_icon_168150.png" alt="BigQuery">
+                    <div class="tech-name">BigQuery</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://companieslogo.com/img/orig/AYX-cdb1d00e.png?t=1720244490" alt="Alteryx">
+                    <div class="tech-name">Alteryx</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Amazon-Redshift-Logo.svg/1862px-Amazon-Redshift-Logo.svg.png" alt="AWS RedShift">
+                    <div class="tech-name">AWS Redshift</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://www.northware.mx/wp-content/uploads/2022/09/northware-microsoft-azure-logo.png" alt="Azure">
+                    <div class="tech-name">Azure</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png" alt="PostgreSQL">
+                    <div class="tech-name">PostgreSQL</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://cdn.worldvectorlogo.com/logos/tableau-software.svg" alt="Tableau">
+                    <div class="tech-name">Tableau</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/New_Power_BI_Logo.svg/1200px-New_Power_BI_Logo.svg.png" alt="PowerBI">
+                    <div class="tech-name">PowerBI</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.seeklogo.com/logo-png/39/2/google-looker-logo-png_seeklogo-394597.png" alt="Looker">
+                    <div class="tech-name">Looker</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.icon-icons.com/2699/PNG/512/metabase_logo_icon_170959.png" alt="Metabase">
+                    <div class="tech-name">Metabase</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.seeklogo.com/logo-png/44/2/streamlit-logo-png_seeklogo-441815.png" alt="Streamlit">
+                    <div class="tech-name">Streamlit</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://img.icons8.com/fluent/512/docker.png" alt="Docker">
+                    <div class="tech-name">Docker</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.icon-icons.com/2699/PNG/512/fivetran_logo_icon_170149.png" alt="Fivetran">
+                    <div class="tech-name">Fivetran</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://avatars.githubusercontent.com/u/59758427?s=280&v=4" alt="Airbyte">
+                    <div class="tech-name">Airbyte</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://images.seeklogo.com/logo-png/50/2/github-icon-logo-png_seeklogo-503247.png" alt="Github">
+                    <div class="tech-name">Github</div>
+                </div>
+                <div class="tech-item">
+                    <img src="https://wac-cdn.atlassian.com/dam/jcr:a7a6a501-1329-4543-b204-093584908134/Bitbucket@2x-icon-blue.png" alt="Bitbucket">
+                    <div class="tech-name">Bitbucket</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" id="blogs">
+    <h2>Featured Content</h2>
+    <!-- <div class="content-layout"> -->
+<div class="video-section">
+    <h3>Podcast on Astronomer</h3>
+    <div class="video-container">
+            <!-- <h4>Demo Video Coming Soon</h4> -->
+            <iframe width="560" height="560" src="https://www.youtube.com/embed/LW0vfM74Q8g?si=xJs9V4urOX4V3QOk" title="Mihir Samant Apache Airflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+     <div class="articles-section">
+
+         <div style="height: 2rem;"></div>
+
+            <h3>Latest Articles</h3>
+            <div class="articles-list">
+                <a href="https://medium.com/apache-airflow/how-to-install-apache-airflow-3-0-using-docker-a-complete-guide-febf1bb3204d" class="article-link">
+                    <h4>How to Install Apache Airflow 3.0 Using Docker: A Complete Guide</h4>
+                    <p>A comprehensive guide to install Apache Airflow</p>
+                </a>
+                <a href="https://medium.com/apache-airflow/how-to-cleanup-logs-collected-by-apache-airflow-a85eac6fcbfc" class="article-link">
+                    <h4>How to cleanup logs collected by Apache Airflow</h4>
+                    <p>Creating automated log cleaner for Apache Airflow</p>
+                </a>
+                <a href="https://medium.com/@mihirs202/what-are-trigger-rules-in-airflow-37143c90f528" class="article-link">
+                    <h4>Apache Airflow Trigger Rules</h4>
+                    <p>Simple explanation of Airflow Trigger Rules.</p>
+                </a>
+            </div>
+</div>
+
+      
+</section>
+                </div>
+                
+        </section>
+
+     
+    </div>
+
+    <script>
+ // Create particles with random RGB gradient colors
+function createParticles() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 200; // Increased particle count
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random particle type
+        const types = ['particle-small', 'particle-medium', 'particle-large', 'particle-glow'];
+        const randomType = types[Math.floor(Math.random() * types.length)];
+        particle.classList.add(randomType);
+        
+        // Random RGB colors for gradient
+        const color1 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+        const color2 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+        
+        // Random gradient direction
+        const angle = Math.floor(Math.random() * 360);
+        
+        // Apply random gradient background
+        particle.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+        
+        // Add glow effect for glow particles
+        if (randomType === 'particle-glow') {
+            particle.style.boxShadow = `0 0 ${Math.floor(Math.random() * 20) + 10}px ${color1}`;
+        }
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Random animation delay
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        
+        // Random animation duration variation
+        const baseDuration = randomType === 'particle-small' ? 8 : 
+                           randomType === 'particle-medium' ? 12 : 
+                           randomType === 'particle-large' ? 15 : 10;
+        particle.style.animationDuration = (baseDuration + Math.random() * 5) + 's';
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Initialize particles when page loads
+document.addEventListener('DOMContentLoaded', createParticles);
+
+// Recreate particles every 30 seconds for variety
+setInterval(() => {
+    const particlesContainer = document.getElementById('particles');
+    particlesContainer.innerHTML = '';
+    createParticles();
+}, 300000);
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Contact form handling
+document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    // Simple validation
+    if (!name || !email || !subject || !message) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    // Simulate form submission
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    // Simulate API call delay
+    setTimeout(() => {
+        alert('Thank you for your message! I\'ll get back to you soon.');
+        this.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }, 2000);
+});
+
+// Add interactive hover effects to project cards
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// Add interactive effects to tech items
+document.querySelectorAll('.tech-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.15) rotate(5deg)';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+    });
+});
+
+// Add typing effect to hero text
+function typeWriter(element, text, speed = 50) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    
+    type();
+}
+
+// Initialize typing effect after page loads
+window.addEventListener('load', function() {
+    const heroTitle = document.querySelector('.hero h1');
+    const heroText = document.querySelector('.hero p');
+    
+    // Store original text
+    const titleText = heroTitle.textContent;
+    const paragraphText = heroText.textContent;
+    
+    // Start typing animation
+    setTimeout(() => {
+        typeWriter(heroTitle, titleText, 100);
+        setTimeout(() => {
+            typeWriter(heroText, paragraphText, 50);
+        }, titleText.length * 100 + 500);
+    }, 500);
+});
+
+// Add parallax effect to particles on scroll
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const particles = document.querySelectorAll('.particle');
+    
+    particles.forEach((particle, index) => { 
+        const speed = (index % 3 + 1) * 0.1;
+        particle.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// Add mouse tracking effect to particles
+document.addEventListener('mousemove', function(e) {
+    const particles = document.querySelectorAll('.particle');
+    const mouseX = e.clientX / window.innerWidth;
+    const mouseY = e.clientY / window.innerHeight;
+    
+    particles.forEach((particle, index) => {
+        const speed = (index % 5 + 1) * 2;
+        const x = (mouseX - 0.5) * speed;
+        const y = (mouseY - 0.5) * speed;
+        
+        particle.style.transform += ` translate(${x}px, ${y}px)`;
+    });
+});
+
+// Add fade-in animation on scroll
+function fadeInOnScroll() {
+    const elements = document.querySelectorAll('.card, .project-card');
+    
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }
+    });
+}
+
+// Initialize fade-in effect
+window.addEventListener('scroll', fadeInOnScroll);
+
+// Set initial state for fade-in elements
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.card, .project-card');
+    elements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    
+    // Trigger initial check
+    fadeInOnScroll();
+});
+
+// Add dynamic color changing to navbar on scroll
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    const scrolled = window.pageYOffset;
+    
+    if (scrolled > 100) {
+        navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+        navbar.style.backdropFilter = 'blur(20px)';
+    } else {
+        navbar.style.background = 'rgba(0, 0, 0, 0.5)';
+        navbar.style.backdropFilter = 'blur(10px)';
+    }
+});
+
+// Add click ripple effect to buttons
+document.querySelectorAll('.social-btn, .project-link, .submit-btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+        ripple.style.pointerEvents = 'none';
+        ripple.style.animation = 'ripple 0.6s ease-out';
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+});
+
+// Add CSS for ripple animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+    </script>
+</body>    
